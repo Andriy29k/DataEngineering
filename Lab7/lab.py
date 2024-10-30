@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from delta import *
+from pyspark.sql.functions import col, lit
 
 builder = SparkSession.builder.appName("Bank transactions") \
  .config("spark.sql.extensions",
@@ -35,6 +36,22 @@ delta_table = spark.read.format("delta").load("/tmp/delta-table")
 delta_table.show()
 delta_table.printSchema()
 
+delta_table = DeltaTable.forPath(spark, "/tmp/delta-table")
+
+delta_table.update(
+    condition=col("transaction_id") == 4,
+    set={
+        "transaction_id": col("transaction_id"),
+        "date": lit("2024-10-10"),
+        "amount": lit(1800.0),
+        "transaction_type": lit("deposit")
+    }
+)
+
+updated_table = spark.read.format("delta").load("/tmp/delta-table")
+updated_table.show()
+
+
 new_data = [
     (7, "2024-10-04", 1000.00, "deposit"),
     (8, "2024-10-05", -200.00, "withdrawal"),
@@ -43,6 +60,15 @@ new_data = [
 ]
 new_df = spark.createDataFrame(new_data, schema=schema)
 new_df.write.format("delta").mode("append").save("/tmp/delta-table")
+
+updated_table = spark.read.format("delta").load("/tmp/delta-table")
+updated_table.show()
+
+delta_table = DeltaTable.forPath(spark, "/tmp/delta-table")
+
+delta_table.delete(condition=col("transaction_id") == 4)
+
+delta_table.delete(condition=(col("transaction_type") == "deposit") & (col("amount") > 1000))
 
 updated_table = spark.read.format("delta").load("/tmp/delta-table")
 updated_table.show()
