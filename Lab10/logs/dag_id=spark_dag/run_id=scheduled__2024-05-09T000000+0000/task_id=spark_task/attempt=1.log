@@ -1,0 +1,434 @@
+[2024-11-18T17:38:25.428+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-11-18T17:38:25.504+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: spark_dag.spark_task scheduled__2024-05-09T00:00:00+00:00 [queued]>
+[2024-11-18T17:38:25.545+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: spark_dag.spark_task scheduled__2024-05-09T00:00:00+00:00 [queued]>
+[2024-11-18T17:38:25.546+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-11-18T17:38:25.586+0000] {taskinstance.py:2330} INFO - Executing <Task(SparkSubmitOperator): spark_task> on 2024-05-09 00:00:00+00:00
+[2024-11-18T17:38:25.603+0000] {standard_task_runner.py:64} INFO - Started process 692 to run task
+[2024-11-18T17:38:25.697+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'spark_dag', 'spark_task', 'scheduled__2024-05-09T00:00:00+00:00', '--job-id', '626', '--raw', '--subdir', 'DAGS_FOLDER/spark_dag.py', '--cfg-path', '/tmp/tmpq8r05yhn']
+[2024-11-18T17:38:25.739+0000] {standard_task_runner.py:91} INFO - Job 626: Subtask spark_task
+[2024-11-18T17:38:26.252+0000] {task_command.py:426} INFO - Running <TaskInstance: spark_dag.spark_task scheduled__2024-05-09T00:00:00+00:00 [running]> on host 39153155bde1
+[2024-11-18T17:38:26.711+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='spark_dag' AIRFLOW_CTX_TASK_ID='spark_task' AIRFLOW_CTX_EXECUTION_DATE='2024-05-09T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-05-09T00:00:00+00:00'
+[2024-11-18T17:38:26.714+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-11-18T17:38:26.761+0000] {base.py:84} INFO - Using connection ID 'spark_default' for task execution.
+[2024-11-18T17:38:26.763+0000] {spark_submit.py:473} INFO - Spark-Submit cmd: spark-submit --master spark://spark:7077 --name arrow-spark --deploy-mode client /opt/***/dags/spark_job.py
+[2024-11-18T17:39:14.715+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/jobs/job.py", line 192, in heartbeat
+    self._merge_from(Job._fetch_from_db(self, session))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/retries.py", line 89, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/airflow/.local/lib/python3.11/site-packages/tenacity/__init__.py", line 443, in __iter__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/tenacity/__init__.py", line 376, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/tenacity/__init__.py", line 418, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/tenacity/__init__.py", line 185, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/retries.py", line 98, in wrapped_function
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/jobs/job.py", line 316, in _fetch_from_db
+    session.merge(job)
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3056, in merge
+    return self._merge(
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3136, in _merge
+    merged = self.get(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2853, in get
+    return self._get_impl(
+           ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2975, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2024-11-18T17:39:15.071+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2024-11-18T17:40:56.535+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2024-11-18T17:41:51.115+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2024-11-18T17:42:34.620+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:34 INFO SparkContext: Running Spark version 3.5.3
+[2024-11-18T17:42:34.627+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:34 INFO SparkContext: OS info Linux, 5.15.153.1-microsoft-standard-WSL2, amd64
+[2024-11-18T17:42:34.654+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:34 INFO SparkContext: Java version 17.0.12
+[2024-11-18T17:42:34.868+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:34 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2024-11-18T17:42:35.222+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO ResourceUtils: ==============================================================
+[2024-11-18T17:42:35.226+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2024-11-18T17:42:35.229+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO ResourceUtils: ==============================================================
+[2024-11-18T17:42:35.230+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO SparkContext: Submitted application: Airflow Spark Job
+[2024-11-18T17:42:35.289+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2024-11-18T17:42:35.304+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO ResourceProfile: Limiting resource is cpu
+[2024-11-18T17:42:35.306+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2024-11-18T17:42:35.528+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO SecurityManager: Changing view acls to: ***
+[2024-11-18T17:42:35.533+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO SecurityManager: Changing modify acls to: ***
+[2024-11-18T17:42:35.541+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO SecurityManager: Changing view acls groups to:
+[2024-11-18T17:42:35.545+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO SecurityManager: Changing modify acls groups to:
+[2024-11-18T17:42:35.548+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:35 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: ***; groups with view permissions: EMPTY; users with modify permissions: ***; groups with modify permissions: EMPTY
+[2024-11-18T17:42:36.492+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO Utils: Successfully started service 'sparkDriver' on port 43915.
+[2024-11-18T17:42:36.686+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO SparkEnv: Registering MapOutputTracker
+[2024-11-18T17:42:36.781+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO SparkEnv: Registering BlockManagerMaster
+[2024-11-18T17:42:36.838+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2024-11-18T17:42:36.845+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2024-11-18T17:42:36.861+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2024-11-18T17:42:36.928+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:36 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-0497dd1d-d136-47b2-a430-b9b8b3c41c58
+[2024-11-18T17:42:37.016+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:37 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+[2024-11-18T17:42:37.067+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:37 INFO SparkEnv: Registering OutputCommitCoordinator
+[2024-11-18T17:42:37.873+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:37 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[2024-11-18T17:42:38.182+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:38 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2024-11-18T17:42:38.760+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:38 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark:7077...
+[2024-11-18T17:42:38.926+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:38 INFO TransportClientFactory: Successfully created connection to spark/172.19.0.4:7077 after 81 ms (0 ms spent in bootstraps)
+[2024-11-18T17:42:39.831+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20241118174239-0000
+[2024-11-18T17:42:39.858+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 45355.
+[2024-11-18T17:42:39.859+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO NettyBlockTransferService: Server created on 39153155bde1:45355
+[2024-11-18T17:42:39.863+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2024-11-18T17:42:39.875+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 39153155bde1, 45355, None)
+[2024-11-18T17:42:39.882+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO BlockManagerMasterEndpoint: Registering block manager 39153155bde1:45355 with 434.4 MiB RAM, BlockManagerId(driver, 39153155bde1, 45355, None)
+[2024-11-18T17:42:39.884+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 39153155bde1, 45355, None)
+[2024-11-18T17:42:39.899+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 39153155bde1, 45355, None)
+[2024-11-18T17:42:39.971+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20241118174239-0000/0 on worker-20241118173202-172.19.0.5-46113 (172.19.0.5:46113) with 1 core(s)
+[2024-11-18T17:42:39.975+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO StandaloneSchedulerBackend: Granted executor ID app-20241118174239-0000/0 on hostPort 172.19.0.5:46113 with 1 core(s), 1024.0 MiB RAM
+[2024-11-18T17:42:39.983+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20241118174239-0000/1 on worker-20241118173203-172.19.0.6-45105 (172.19.0.6:45105) with 1 core(s)
+[2024-11-18T17:42:39.984+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:39 INFO StandaloneSchedulerBackend: Granted executor ID app-20241118174239-0000/1 on hostPort 172.19.0.6:45105 with 1 core(s), 1024.0 MiB RAM
+[2024-11-18T17:42:40.756+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:40 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+[2024-11-18T17:42:42.505+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:42 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir.
+[2024-11-18T17:42:42.523+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:42 INFO SharedState: Warehouse path is 'file:/app/spark-warehouse'.
+[2024-11-18T17:42:43.406+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:43 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20241118174239-0000/0 is now RUNNING
+[2024-11-18T17:42:43.422+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:43 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20241118174239-0000/1 is now RUNNING
+[2024-11-18T17:42:53.337+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO CodeGenerator: Code generated in 1154.041955 ms
+[2024-11-18T17:42:53.566+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO SparkContext: Starting job: showString at NativeMethodAccessorImpl.java:0
+[2024-11-18T17:42:53.713+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO DAGScheduler: Got job 0 (showString at NativeMethodAccessorImpl.java:0) with 1 output partitions
+[2024-11-18T17:42:53.749+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO DAGScheduler: Final stage: ResultStage 0 (showString at NativeMethodAccessorImpl.java:0)
+[2024-11-18T17:42:53.763+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (172.19.0.5:53172) with ID 0,  ResourceProfileId 0
+[2024-11-18T17:42:53.776+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO DAGScheduler: Parents of final stage: List()
+[2024-11-18T17:42:53.779+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO DAGScheduler: Missing parents: List()
+[2024-11-18T17:42:53.813+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[6] at showString at NativeMethodAccessorImpl.java:0), which has no missing parents
+[2024-11-18T17:42:53.862+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:53 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (172.19.0.6:37542) with ID 1,  ResourceProfileId 0
+[2024-11-18T17:42:54.118+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO BlockManagerMasterEndpoint: Registering block manager 172.19.0.5:38377 with 434.4 MiB RAM, BlockManagerId(0, 172.19.0.5, 38377, None)
+[2024-11-18T17:42:54.246+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO BlockManagerMasterEndpoint: Registering block manager 172.19.0.6:37753 with 434.4 MiB RAM, BlockManagerId(1, 172.19.0.6, 37753, None)
+[2024-11-18T17:42:54.449+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 13.1 KiB, free 434.4 MiB)
+[2024-11-18T17:42:54.510+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 6.8 KiB, free 434.4 MiB)
+[2024-11-18T17:42:54.517+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 39153155bde1:45355 (size: 6.8 KiB, free: 434.4 MiB)
+[2024-11-18T17:42:54.532+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1585
+[2024-11-18T17:42:54.649+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[6] at showString at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0))
+[2024-11-18T17:42:54.650+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks resource profile 0
+[2024-11-18T17:42:54.730+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (172.19.0.5, executor 0, partition 0, PROCESS_LOCAL, 9122 bytes)
+[2024-11-18T17:42:54.983+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 WARN TaskSetManager: Lost task 0.0 in stage 0.0 (TID 0) (172.19.0.5 executor 0): java.io.InvalidClassException: org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095
+[2024-11-18T17:42:54.984+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:597)
+[2024-11-18T17:42:54.985+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:54.985+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:54.986+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:54.986+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:54.987+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2224)
+[2024-11-18T17:42:54.988+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1733)
+[2024-11-18T17:42:54.988+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:509)
+[2024-11-18T17:42:54.988+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:467)
+[2024-11-18T17:42:54.991+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:87)
+[2024-11-18T17:42:54.992+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:129)
+[2024-11-18T17:42:54.993+0000] {spark_submit.py:634} INFO - at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:579)
+[2024-11-18T17:42:54.994+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2024-11-18T17:42:54.994+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2024-11-18T17:42:54.995+0000] {spark_submit.py:634} INFO - at java.base/java.lang.Thread.run(Thread.java:840)
+[2024-11-18T17:42:54.995+0000] {spark_submit.py:634} INFO - 
+[2024-11-18T17:42:54.996+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:54 INFO TaskSetManager: Starting task 0.1 in stage 0.0 (TID 1) (172.19.0.6, executor 1, partition 0, PROCESS_LOCAL, 9122 bytes)
+[2024-11-18T17:42:55.059+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSetManager: Lost task 0.1 in stage 0.0 (TID 1) on 172.19.0.6, executor 1: java.io.InvalidClassException (org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095) [duplicate 1]
+[2024-11-18T17:42:55.061+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSetManager: Starting task 0.2 in stage 0.0 (TID 2) (172.19.0.6, executor 1, partition 0, PROCESS_LOCAL, 9122 bytes)
+[2024-11-18T17:42:55.073+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSetManager: Lost task 0.2 in stage 0.0 (TID 2) on 172.19.0.6, executor 1: java.io.InvalidClassException (org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095) [duplicate 2]
+[2024-11-18T17:42:55.074+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSetManager: Starting task 0.3 in stage 0.0 (TID 3) (172.19.0.6, executor 1, partition 0, PROCESS_LOCAL, 9122 bytes)
+[2024-11-18T17:42:55.084+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSetManager: Lost task 0.3 in stage 0.0 (TID 3) on 172.19.0.6, executor 1: java.io.InvalidClassException (org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095) [duplicate 3]
+[2024-11-18T17:42:55.085+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 ERROR TaskSetManager: Task 0 in stage 0.0 failed 4 times; aborting job
+[2024-11-18T17:42:55.087+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool
+[2024-11-18T17:42:55.090+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSchedulerImpl: Cancelling stage 0
+[2024-11-18T17:42:55.091+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO TaskSchedulerImpl: Killing all running tasks in stage 0: Stage cancelled: Job aborted due to stage failure: Task 0 in stage 0.0 failed 4 times, most recent failure: Lost task 0.3 in stage 0.0 (TID 3) (172.19.0.6 executor 1): java.io.InvalidClassException: org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095
+[2024-11-18T17:42:55.091+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:597)
+[2024-11-18T17:42:55.092+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.092+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.093+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.093+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.094+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2224)
+[2024-11-18T17:42:55.094+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1733)
+[2024-11-18T17:42:55.095+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:509)
+[2024-11-18T17:42:55.095+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:467)
+[2024-11-18T17:42:55.095+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:87)
+[2024-11-18T17:42:55.096+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:129)
+[2024-11-18T17:42:55.096+0000] {spark_submit.py:634} INFO - at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:579)
+[2024-11-18T17:42:55.096+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2024-11-18T17:42:55.097+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2024-11-18T17:42:55.097+0000] {spark_submit.py:634} INFO - at java.base/java.lang.Thread.run(Thread.java:840)
+[2024-11-18T17:42:55.098+0000] {spark_submit.py:634} INFO - 
+[2024-11-18T17:42:55.098+0000] {spark_submit.py:634} INFO - Driver stacktrace:
+[2024-11-18T17:42:55.098+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO DAGScheduler: ResultStage 0 (showString at NativeMethodAccessorImpl.java:0) failed in 1.188 s due to Job aborted due to stage failure: Task 0 in stage 0.0 failed 4 times, most recent failure: Lost task 0.3 in stage 0.0 (TID 3) (172.19.0.6 executor 1): java.io.InvalidClassException: org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095
+[2024-11-18T17:42:55.098+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:597)
+[2024-11-18T17:42:55.099+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.099+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.099+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.099+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.100+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2224)
+[2024-11-18T17:42:55.100+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1733)
+[2024-11-18T17:42:55.100+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:509)
+[2024-11-18T17:42:55.100+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:467)
+[2024-11-18T17:42:55.101+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:87)
+[2024-11-18T17:42:55.101+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:129)
+[2024-11-18T17:42:55.101+0000] {spark_submit.py:634} INFO - at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:579)
+[2024-11-18T17:42:55.102+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2024-11-18T17:42:55.102+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2024-11-18T17:42:55.102+0000] {spark_submit.py:634} INFO - at java.base/java.lang.Thread.run(Thread.java:840)
+[2024-11-18T17:42:55.103+0000] {spark_submit.py:634} INFO - 
+[2024-11-18T17:42:55.103+0000] {spark_submit.py:634} INFO - Driver stacktrace:
+[2024-11-18T17:42:55.103+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO DAGScheduler: Job 0 failed: showString at NativeMethodAccessorImpl.java:0, took 1.540215 s
+[2024-11-18T17:42:55.270+0000] {spark_submit.py:634} INFO - Traceback (most recent call last):
+[2024-11-18T17:42:55.271+0000] {spark_submit.py:634} INFO - File "/opt/***/dags/spark_job.py", line 16, in <module>
+[2024-11-18T17:42:55.272+0000] {spark_submit.py:634} INFO - df.show()
+[2024-11-18T17:42:55.273+0000] {spark_submit.py:634} INFO - File "/home/***/.local/lib/python3.11/site-packages/pyspark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 947, in show
+[2024-11-18T17:42:55.273+0000] {spark_submit.py:634} INFO - File "/home/***/.local/lib/python3.11/site-packages/pyspark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 965, in _show_string
+[2024-11-18T17:42:55.273+0000] {spark_submit.py:634} INFO - File "/home/***/.local/lib/python3.11/site-packages/pyspark/python/lib/py4j-0.10.9.7-src.zip/py4j/java_gateway.py", line 1322, in __call__
+[2024-11-18T17:42:55.274+0000] {spark_submit.py:634} INFO - File "/home/***/.local/lib/python3.11/site-packages/pyspark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 179, in deco
+[2024-11-18T17:42:55.274+0000] {spark_submit.py:634} INFO - File "/home/***/.local/lib/python3.11/site-packages/pyspark/python/lib/py4j-0.10.9.7-src.zip/py4j/protocol.py", line 326, in get_return_value
+[2024-11-18T17:42:55.274+0000] {spark_submit.py:634} INFO - py4j.protocol.Py4JJavaError: An error occurred while calling o41.showString.
+[2024-11-18T17:42:55.275+0000] {spark_submit.py:634} INFO - : org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 0.0 failed 4 times, most recent failure: Lost task 0.3 in stage 0.0 (TID 3) (172.19.0.6 executor 1): java.io.InvalidClassException: org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095
+[2024-11-18T17:42:55.275+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:597)
+[2024-11-18T17:42:55.275+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.275+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.276+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.276+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.276+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2224)
+[2024-11-18T17:42:55.276+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1733)
+[2024-11-18T17:42:55.277+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:509)
+[2024-11-18T17:42:55.277+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:467)
+[2024-11-18T17:42:55.277+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:87)
+[2024-11-18T17:42:55.277+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:129)
+[2024-11-18T17:42:55.278+0000] {spark_submit.py:634} INFO - at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:579)
+[2024-11-18T17:42:55.278+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2024-11-18T17:42:55.278+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2024-11-18T17:42:55.278+0000] {spark_submit.py:634} INFO - at java.base/java.lang.Thread.run(Thread.java:840)
+[2024-11-18T17:42:55.278+0000] {spark_submit.py:634} INFO - 
+[2024-11-18T17:42:55.279+0000] {spark_submit.py:634} INFO - Driver stacktrace:
+[2024-11-18T17:42:55.279+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2856)
+[2024-11-18T17:42:55.279+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2792)
+[2024-11-18T17:42:55.279+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2791)
+[2024-11-18T17:42:55.280+0000] {spark_submit.py:634} INFO - at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
+[2024-11-18T17:42:55.280+0000] {spark_submit.py:634} INFO - at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
+[2024-11-18T17:42:55.280+0000] {spark_submit.py:634} INFO - at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
+[2024-11-18T17:42:55.280+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2791)
+[2024-11-18T17:42:55.280+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1247)
+[2024-11-18T17:42:55.281+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1247)
+[2024-11-18T17:42:55.281+0000] {spark_submit.py:634} INFO - at scala.Option.foreach(Option.scala:407)
+[2024-11-18T17:42:55.281+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1247)
+[2024-11-18T17:42:55.281+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:3060)
+[2024-11-18T17:42:55.282+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2994)
+[2024-11-18T17:42:55.282+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2983)
+[2024-11-18T17:42:55.282+0000] {spark_submit.py:634} INFO - at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+[2024-11-18T17:42:55.283+0000] {spark_submit.py:634} INFO - at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:989)
+[2024-11-18T17:42:55.283+0000] {spark_submit.py:634} INFO - at org.apache.spark.SparkContext.runJob(SparkContext.scala:2393)
+[2024-11-18T17:42:55.283+0000] {spark_submit.py:634} INFO - at org.apache.spark.SparkContext.runJob(SparkContext.scala:2414)
+[2024-11-18T17:42:55.283+0000] {spark_submit.py:634} INFO - at org.apache.spark.SparkContext.runJob(SparkContext.scala:2433)
+[2024-11-18T17:42:55.283+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:530)
+[2024-11-18T17:42:55.284+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:483)
+[2024-11-18T17:42:55.284+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.CollectLimitExec.executeCollect(limit.scala:61)
+[2024-11-18T17:42:55.284+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.collectFromPlan(Dataset.scala:4333)
+[2024-11-18T17:42:55.284+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.$anonfun$head$1(Dataset.scala:3316)
+[2024-11-18T17:42:55.285+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.$anonfun$withAction$2(Dataset.scala:4323)
+[2024-11-18T17:42:55.285+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:546)
+[2024-11-18T17:42:55.285+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.$anonfun$withAction$1(Dataset.scala:4321)
+[2024-11-18T17:42:55.285+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:125)
+[2024-11-18T17:42:55.285+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:201)
+[2024-11-18T17:42:55.286+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:108)
+[2024-11-18T17:42:55.286+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+[2024-11-18T17:42:55.286+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:66)
+[2024-11-18T17:42:55.286+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.withAction(Dataset.scala:4321)
+[2024-11-18T17:42:55.286+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.head(Dataset.scala:3316)
+[2024-11-18T17:42:55.287+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.take(Dataset.scala:3539)
+[2024-11-18T17:42:55.287+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.getRows(Dataset.scala:280)
+[2024-11-18T17:42:55.287+0000] {spark_submit.py:634} INFO - at org.apache.spark.sql.Dataset.showString(Dataset.scala:315)
+[2024-11-18T17:42:55.287+0000] {spark_submit.py:634} INFO - at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[2024-11-18T17:42:55.288+0000] {spark_submit.py:634} INFO - at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+[2024-11-18T17:42:55.288+0000] {spark_submit.py:634} INFO - at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+[2024-11-18T17:42:55.288+0000] {spark_submit.py:634} INFO - at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+[2024-11-18T17:42:55.288+0000] {spark_submit.py:634} INFO - at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+[2024-11-18T17:42:55.289+0000] {spark_submit.py:634} INFO - at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+[2024-11-18T17:42:55.289+0000] {spark_submit.py:634} INFO - at py4j.Gateway.invoke(Gateway.java:282)
+[2024-11-18T17:42:55.289+0000] {spark_submit.py:634} INFO - at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+[2024-11-18T17:42:55.289+0000] {spark_submit.py:634} INFO - at py4j.commands.CallCommand.execute(CallCommand.java:79)
+[2024-11-18T17:42:55.290+0000] {spark_submit.py:634} INFO - at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+[2024-11-18T17:42:55.290+0000] {spark_submit.py:634} INFO - at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+[2024-11-18T17:42:55.290+0000] {spark_submit.py:634} INFO - at java.base/java.lang.Thread.run(Thread.java:840)
+[2024-11-18T17:42:55.290+0000] {spark_submit.py:634} INFO - Caused by: java.io.InvalidClassException: org.apache.spark.scheduler.Task; local class incompatible: stream classdesc serialVersionUID = -6188971942555435033, local class serialVersionUID = 553100815431272095
+[2024-11-18T17:42:55.290+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:597)
+[2024-11-18T17:42:55.291+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.291+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.291+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2051)
+[2024-11-18T17:42:55.291+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1898)
+[2024-11-18T17:42:55.292+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2224)
+[2024-11-18T17:42:55.292+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1733)
+[2024-11-18T17:42:55.292+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:509)
+[2024-11-18T17:42:55.293+0000] {spark_submit.py:634} INFO - at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:467)
+[2024-11-18T17:42:55.293+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:87)
+[2024-11-18T17:42:55.293+0000] {spark_submit.py:634} INFO - at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:129)
+[2024-11-18T17:42:55.294+0000] {spark_submit.py:634} INFO - at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:579)
+[2024-11-18T17:42:55.294+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2024-11-18T17:42:55.294+0000] {spark_submit.py:634} INFO - at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2024-11-18T17:42:55.294+0000] {spark_submit.py:634} INFO - ... 1 more
+[2024-11-18T17:42:55.311+0000] {spark_submit.py:634} INFO - 
+[2024-11-18T17:42:55.408+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO SparkContext: Invoking stop() from shutdown hook
+[2024-11-18T17:42:55.409+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO SparkContext: SparkContext is stopping with exitCode 0.
+[2024-11-18T17:42:55.425+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO SparkUI: Stopped Spark web UI at http://39153155bde1:4040
+[2024-11-18T17:42:55.431+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO StandaloneSchedulerBackend: Shutting down all executors
+[2024-11-18T17:42:55.432+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Asking each executor to shut down
+[2024-11-18T17:42:55.460+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+[2024-11-18T17:42:55.527+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO MemoryStore: MemoryStore cleared
+[2024-11-18T17:42:55.549+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO BlockManager: BlockManager stopped
+[2024-11-18T17:42:55.570+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO BlockManagerMaster: BlockManagerMaster stopped
+[2024-11-18T17:42:55.582+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+[2024-11-18T17:42:55.649+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO SparkContext: Successfully stopped SparkContext
+[2024-11-18T17:42:55.653+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO ShutdownHookManager: Shutdown hook called
+[2024-11-18T17:42:55.658+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO ShutdownHookManager: Deleting directory /tmp/spark-bd5200c4-f119-48ef-b243-c687facb451b/pyspark-4c065d7f-5830-471d-902e-3407b70ef0a0
+[2024-11-18T17:42:55.679+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO ShutdownHookManager: Deleting directory /tmp/spark-0293d87d-ab3e-44b9-9a0f-e43ec26913a9
+[2024-11-18T17:42:55.717+0000] {spark_submit.py:634} INFO - 24/11/18 17:42:55 INFO ShutdownHookManager: Deleting directory /tmp/spark-bd5200c4-f119-48ef-b243-c687facb451b
+[2024-11-18T17:42:55.827+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-11-18T17:42:55.866+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/apache/spark/operators/spark_submit.py", line 176, in execute
+    self._hook.submit(self.application)
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/apache/spark/hooks/spark_submit.py", line 560, in submit
+    raise AirflowException(
+airflow.exceptions.AirflowException: Cannot execute: spark-submit --master spark://spark:7077 --name arrow-spark --deploy-mode client /opt/***/dags/spark_job.py. Error code is: 1.
+[2024-11-18T17:42:55.877+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=spark_dag, task_id=spark_task, run_id=scheduled__2024-05-09T00:00:00+00:00, execution_date=20240509T000000, start_date=20241118T173825, end_date=20241118T174255
+[2024-11-18T17:42:55.922+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 626 for task spark_task (Cannot execute: spark-submit --master spark://spark:7077 --name arrow-spark --deploy-mode client /opt/***/dags/spark_job.py. Error code is: 1.; 692)
+[2024-11-18T17:42:55.969+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-11-18T17:42:56.003+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-11-18T17:42:56.007+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

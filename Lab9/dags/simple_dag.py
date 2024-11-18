@@ -15,7 +15,7 @@ def count_lines_in_file(file_path):
 default_args = {
     'owner': 'airflow',
     'start_date': datetime(2024, 1, 1),
-    'retries': 1,
+    'retries': 1
 }
 
 dag = DAG(
