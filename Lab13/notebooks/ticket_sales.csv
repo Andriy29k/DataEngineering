@@ -1,0 +1,7 @@
+ticket_id,event_id,price,quantity_sold,category
+1,101,50.0,200,Concert
+2,102,75.0,150,Sports
+3,103,60.0,100,Concert
+4,104,30.0,300,Theater
+5,105,100.0,50,Sports
+6,106,25.0,400,Theater
