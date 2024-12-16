@@ -1,0 +1,37 @@
+{
+    "columns": [
+      {
+        "column_name": "owner_name",
+        "dq_rule(s)": [
+          {
+            "rule_name": "check_if_not_null",
+            "rule_dimension": "Completeness",
+            "add_info": {}
+          }
+        ]
+      },
+      {
+        "column_name": "price",
+        "dq_rule(s)": [
+          {
+            "rule_name": "check_if_greater_than",
+            "rule_dimension": "Validity",
+            "add_info": {
+              "threshold": 0
+            }
+          }
+        ]
+      },
+      {
+        "column_name": "square_meters",
+        "dq_rule(s)": [
+          {
+            "rule_name": "check_if_not_null",
+            "rule_dimension": "Completeness",
+            "add_info": {}
+          }
+        ]
+      }
+    ]
+  }
+  

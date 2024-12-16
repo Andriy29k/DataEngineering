@@ -1,0 +1,6 @@
+house_id,address,owner_name,price,square_meters
+1,123 Main St,John Doe,250000,150
+2,456 Oak St,Jane Smith,-300000,200
+3,789 Pine St,,400000,180
+4,101 Maple St,David Lee,350000,
+5,202 Birch St,Eve Adams,500000,220
