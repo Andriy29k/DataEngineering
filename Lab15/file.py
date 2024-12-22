@@ -16,7 +16,7 @@ schema = StructType([
     StructField("square_meters", FloatType(), True)
 ])
 
-df = spark.read.csv("/home/jovyan/work/houses.csv", header=True, schema=schema)
+df = spark.read.csv("/home/jovyan/work/data.csv", header=True, schema=schema)
 
 df.show()
 
@@ -43,6 +43,7 @@ class NotNullExpectation(Expectation):
         )
 
 
+from great_expectations.dataset.sparkdf_dataset import SparkDFDataset 
 class GreaterThanExpectation(Expectation):
     def __init__(self, column, dimension, add_info, threshold=None, **kwargs):
         super().__init__(column, dimension, add_info)
@@ -53,14 +54,13 @@ class GreaterThanExpectation(Expectation):
             raise ValueError("Threshold must be provided for 'greater_than' rule")
         
         if isinstance(self.threshold, (int, float)):
-            ge_df.expect_column_values_to_be_in_set(
+            ge_df.expect_column_values_to_be_between(
                 column=self.column,
-                value_set=[self.threshold],
+                min_value=self.threshold,
                 meta={"dimension": self.dimension}
             )
         else:
             raise ValueError(f"Threshold must be a number, but got {type(self.threshold)}")
-
 
 import json
 
