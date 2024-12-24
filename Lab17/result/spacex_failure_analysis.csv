@@ -1,2 +1,2 @@
-,failure_reason,failure_count,average_failure_altitude
-0,harmonic oscillation leading to premature engine shutdown,1,289.0
+failure_reason,launch_date,failure_count,average_failure_altitude
+harmonic oscillation leading to premature engine shutdown,2007-03-21 01:10:00,1,289.0
